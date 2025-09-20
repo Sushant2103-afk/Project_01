@@ -16,7 +16,28 @@ void addExpenses();
 void viewExpenses();
 
 int main(){
-    
+    int choice;
+    while(1)
+    {
+        printf("1.Add Expenses\n 2.View Expenses\n 3.Exit\n Enter choice:");
+        scanf("%d",&choice);
+
+        switch(choice)
+        {
+            case 1:addExpenses();
+                    break;
+            case 2:viewExpenses();
+                    break;
+            case 3:exit(0);
+                    break;
+            default: printf("Invalid choice!\n");
+            
+
+        }
+        
+        
+        
+    }
     return 0;
 }
 
@@ -47,5 +68,25 @@ void addExpenses()
     fprintf(ptr,"%s|%s|%.2f|%s\n",e.date,e.category,e.amount,e.note);
     fclose(ptr);
     printf("Expense added successfully! \n");
+    
+}
+
+void viewExpenses()
+{
+    FILE *ptr=fopen(DATA_FILE,"r");
+    if(!ptr)
+    {
+        printf("No expenses found.\n");
+        return;
+    }
+    char line[200];
+
+    printf("Date    | Category    |  Amount     | Note\n");
+    printf("--------------------------------------------- \n");
+    while(fgets(line,sizeof(line),ptr))
+    {
+        printf("%s",line);
+    }
+    fclose(ptr);
     
 }
